@@ -1,0 +1,8 @@
+metric,group,value
+cells,all,71462
+images,all,15
+categories,all,3
+marker_columns,all,42
+cells_by_category,B,30523
+cells_by_category,MGUS,31530
+cells_by_category,UB,9409

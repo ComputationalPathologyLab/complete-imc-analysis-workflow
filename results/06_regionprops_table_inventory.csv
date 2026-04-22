@@ -1,0 +1,16 @@
+index,file_name,relative_path,size_bytes
+1,TS-373_IMC01_UB_001.csv,data/regionprops/TS-373_IMC01_UB_001.csv,514077
+2,TS-373_IMC01_UB_002.csv,data/regionprops/TS-373_IMC01_UB_002.csv,388607
+3,TS-373_IMC02_MGUS_001.csv,data/regionprops/TS-373_IMC02_MGUS_001.csv,553611
+4,TS-373_IMC02_MGUS_002.csv,data/regionprops/TS-373_IMC02_MGUS_002.csv,414108
+5,TS-373_IMC02_MGUS_003.csv,data/regionprops/TS-373_IMC02_MGUS_003.csv,2095
+6,TS-373_IMC02_MGUS_004.csv,data/regionprops/TS-373_IMC02_MGUS_004.csv,1559
+7,TS-373_IMC02_MGUS_005.csv,data/regionprops/TS-373_IMC02_MGUS_005.csv,1423
+8,TS-373_IMC05_MGUS_001.csv,data/regionprops/TS-373_IMC05_MGUS_001.csv,425101
+9,TS-373_IMC05_MGUS_002.csv,data/regionprops/TS-373_IMC05_MGUS_002.csv,606408
+10,TS-373_IMC05_MGUS_ROI1.csv,data/regionprops/TS-373_IMC05_MGUS_ROI1.csv,425125
+11,TS-373_IMC05_MGUS_ROI2.csv,data/regionprops/TS-373_IMC05_MGUS_ROI2.csv,606183
+12,TS-373_IMC09_B_001.csv,data/regionprops/TS-373_IMC09_B_001.csv,695043
+13,TS-373_IMC09_B_002.csv,data/regionprops/TS-373_IMC09_B_002.csv,773036
+14,TS-373_IMC09_B_ROI1.csv,data/regionprops/TS-373_IMC09_B_ROI1.csv,694923
+15,TS-373_IMC09_B_ROI2.csv,data/regionprops/TS-373_IMC09_B_ROI2.csv,773533

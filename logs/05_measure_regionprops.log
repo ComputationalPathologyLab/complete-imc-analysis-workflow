@@ -1,0 +1,27 @@
+COMMAND
+docker run --rm -v /Users/rashid/1_IMC_Analysis/12_workflowIMC/step_by_step_reproduction/data:/data -u 502:20 ghcr.io/bodenmillergroup/steinbock:0.16.1 measure regionprops
+
+STDOUT
+
+
+STDERR
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+2026-04-21 14:14:46,155 INFO steinbock - regionprops/TS-373_IMC01_UB_001.csv
+2026-04-21 14:14:46,651 INFO steinbock - regionprops/TS-373_IMC01_UB_002.csv
+2026-04-21 14:14:47,282 INFO steinbock - regionprops/TS-373_IMC02_MGUS_001.csv
+2026-04-21 14:14:47,802 INFO steinbock - regionprops/TS-373_IMC02_MGUS_002.csv
+2026-04-21 14:14:47,809 INFO steinbock - regionprops/TS-373_IMC02_MGUS_003.csv
+2026-04-21 14:14:47,814 INFO steinbock - regionprops/TS-373_IMC02_MGUS_004.csv
+2026-04-21 14:14:47,818 INFO steinbock - regionprops/TS-373_IMC02_MGUS_005.csv
+2026-04-21 14:14:48,324 INFO steinbock - regionprops/TS-373_IMC05_MGUS_001.csv
+2026-04-21 14:14:49,067 INFO steinbock - regionprops/TS-373_IMC05_MGUS_002.csv
+2026-04-21 14:14:49,576 INFO steinbock - regionprops/TS-373_IMC05_MGUS_ROI1.csv
+2026-04-21 14:14:50,278 INFO steinbock - regionprops/TS-373_IMC05_MGUS_ROI2.csv
+2026-04-21 14:14:51,068 INFO steinbock - regionprops/TS-373_IMC09_B_001.csv
+2026-04-21 14:14:51,961 INFO steinbock - regionprops/TS-373_IMC09_B_002.csv
+2026-04-21 14:14:52,733 INFO steinbock - regionprops/TS-373_IMC09_B_ROI1.csv
+2026-04-21 14:14:53,667 INFO steinbock - regionprops/TS-373_IMC09_B_ROI2.csv
+
+
+RETURN_CODE
+0

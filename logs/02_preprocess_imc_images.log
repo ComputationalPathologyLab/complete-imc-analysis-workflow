@@ -1,0 +1,28 @@
+COMMAND
+docker run --rm -v /Users/rashid/1_IMC_Analysis/12_workflowIMC/step_by_step_reproduction/data:/data -u 502:20 ghcr.io/bodenmillergroup/steinbock:0.16.1 preprocess imc images --hpf 50
+
+STDOUT
+
+
+STDERR
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+2026-04-21 11:38:51,906 INFO steinbock - img/TS-373_IMC09_B_001.tiff
+2026-04-21 11:38:52,628 INFO steinbock - img/TS-373_IMC09_B_002.tiff
+2026-04-21 11:38:53,318 INFO steinbock - img/TS-373_IMC05_MGUS_001.tiff
+2026-04-21 11:38:54,041 INFO steinbock - img/TS-373_IMC05_MGUS_002.tiff
+2026-04-21 11:38:54,749 INFO steinbock - img/TS-373_IMC02_MGUS_001.tiff
+2026-04-21 11:38:55,458 INFO steinbock - img/TS-373_IMC02_MGUS_002.tiff
+2026-04-21 11:38:55,463 INFO steinbock - img/TS-373_IMC02_MGUS_003.tiff
+2026-04-21 11:38:55,466 INFO steinbock - img/TS-373_IMC02_MGUS_004.tiff
+2026-04-21 11:38:55,469 INFO steinbock - img/TS-373_IMC02_MGUS_005.tiff
+2026-04-21 11:38:56,162 INFO steinbock - img/TS-373_IMC01_UB_001.tiff
+2026-04-21 11:38:56,868 INFO steinbock - img/TS-373_IMC01_UB_002.tiff
+2026-04-21 11:39:00,264 INFO steinbock - img/TS-373_IMC05_MGUS_ROI1.tiff
+2026-04-21 11:39:03,774 INFO steinbock - img/TS-373_IMC05_MGUS_ROI2.tiff
+2026-04-21 11:39:07,088 INFO steinbock - img/TS-373_IMC09_B_ROI1.tiff
+2026-04-21 11:39:10,456 INFO steinbock - img/TS-373_IMC09_B_ROI2.tiff
+2026-04-21 11:39:10,467 INFO steinbock - images.csv
+
+
+RETURN_CODE
+0

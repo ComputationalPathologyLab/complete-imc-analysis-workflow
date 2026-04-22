@@ -1,0 +1,16 @@
+index,file_name,relative_path,size_bytes
+1,TS-373_IMC01_UB_001.csv,data/neighbors/TS-373_IMC01_UB_001.csv,275199
+2,TS-373_IMC01_UB_002.csv,data/neighbors/TS-373_IMC01_UB_002.csv,190205
+3,TS-373_IMC02_MGUS_001.csv,data/neighbors/TS-373_IMC02_MGUS_001.csv,296381
+4,TS-373_IMC02_MGUS_002.csv,data/neighbors/TS-373_IMC02_MGUS_002.csv,205735
+5,TS-373_IMC02_MGUS_003.csv,data/neighbors/TS-373_IMC02_MGUS_003.csv,529
+6,TS-373_IMC02_MGUS_004.csv,data/neighbors/TS-373_IMC02_MGUS_004.csv,403
+7,TS-373_IMC02_MGUS_005.csv,data/neighbors/TS-373_IMC02_MGUS_005.csv,281
+8,TS-373_IMC05_MGUS_001.csv,data/neighbors/TS-373_IMC05_MGUS_001.csv,219899
+9,TS-373_IMC05_MGUS_002.csv,data/neighbors/TS-373_IMC05_MGUS_002.csv,320497
+10,TS-373_IMC05_MGUS_ROI1.csv,data/neighbors/TS-373_IMC05_MGUS_ROI1.csv,219965
+11,TS-373_IMC05_MGUS_ROI2.csv,data/neighbors/TS-373_IMC05_MGUS_ROI2.csv,320343
+12,TS-373_IMC09_B_001.csv,data/neighbors/TS-373_IMC09_B_001.csv,396361
+13,TS-373_IMC09_B_002.csv,data/neighbors/TS-373_IMC09_B_002.csv,458179
+14,TS-373_IMC09_B_ROI1.csv,data/neighbors/TS-373_IMC09_B_ROI1.csv,396339
+15,TS-373_IMC09_B_ROI2.csv,data/neighbors/TS-373_IMC09_B_ROI2.csv,458391

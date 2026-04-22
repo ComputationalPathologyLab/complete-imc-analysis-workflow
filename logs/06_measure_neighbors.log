@@ -1,0 +1,27 @@
+COMMAND
+docker run --rm -v /Users/rashid/1_IMC_Analysis/12_workflowIMC/step_by_step_reproduction/data:/data -u 502:20 ghcr.io/bodenmillergroup/steinbock:0.16.1 measure neighbors --type expansion --dmax 4
+
+STDOUT
+
+
+STDERR
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+2026-04-21 14:31:49,328 INFO steinbock - neighbors/TS-373_IMC01_UB_001.csv
+2026-04-21 14:31:59,333 INFO steinbock - neighbors/TS-373_IMC01_UB_002.csv
+2026-04-21 14:32:13,268 INFO steinbock - neighbors/TS-373_IMC02_MGUS_001.csv
+2026-04-21 14:32:23,641 INFO steinbock - neighbors/TS-373_IMC02_MGUS_002.csv
+2026-04-21 14:32:23,647 INFO steinbock - neighbors/TS-373_IMC02_MGUS_003.csv
+2026-04-21 14:32:23,651 INFO steinbock - neighbors/TS-373_IMC02_MGUS_004.csv
+2026-04-21 14:32:23,654 INFO steinbock - neighbors/TS-373_IMC02_MGUS_005.csv
+2026-04-21 14:32:34,671 INFO steinbock - neighbors/TS-373_IMC05_MGUS_001.csv
+2026-04-21 14:32:50,370 INFO steinbock - neighbors/TS-373_IMC05_MGUS_002.csv
+2026-04-21 14:33:01,101 INFO steinbock - neighbors/TS-373_IMC05_MGUS_ROI1.csv
+2026-04-21 14:33:16,186 INFO steinbock - neighbors/TS-373_IMC05_MGUS_ROI2.csv
+2026-04-21 14:33:33,505 INFO steinbock - neighbors/TS-373_IMC09_B_001.csv
+2026-04-21 14:33:52,927 INFO steinbock - neighbors/TS-373_IMC09_B_002.csv
+2026-04-21 14:34:10,922 INFO steinbock - neighbors/TS-373_IMC09_B_ROI1.csv
+2026-04-21 14:34:30,258 INFO steinbock - neighbors/TS-373_IMC09_B_ROI2.csv
+
+
+RETURN_CODE
+0

@@ -56,6 +56,28 @@ def parse_args() -> argparse.Namespace:
         default=Path("logs/02_preprocess_imc_images.log"),
         help="Numbered preprocessing command log.",
     )
+    parser.add_argument(
+        "--keep-source",
+        choices=["mcd", "all"],
+        default="mcd",
+        help=(
+            "Images to retain after Steinbock preprocessing. The template study "
+            "uses MCD-derived acquisitions; ROI text files are retained in raw/ "
+            "for metadata/header recovery but should not become separate images."
+        ),
+    )
+    parser.add_argument(
+        "--min-width",
+        type=int,
+        default=1000,
+        help="Minimum retained image width in pixels. Use 0 to disable.",
+    )
+    parser.add_argument(
+        "--min-height",
+        type=int,
+        default=1000,
+        help="Minimum retained image height in pixels. Use 0 to disable.",
+    )
     return parser.parse_args()
 
 
@@ -109,6 +131,76 @@ def copy_images_csv(workflow_dir: Path, numbered_images_copy: Path) -> None:
     shutil.copy2(source, destination)
 
 
+def filter_preprocessed_images(
+    workflow_dir: Path,
+    keep_source: str,
+    min_width: int,
+    min_height: int,
+    log_file: Path,
+) -> None:
+    images_csv = workflow_dir / "data" / "images.csv"
+    img_dir = workflow_dir / "data" / "img"
+    require_input(images_csv, "Steinbock images.csv output")
+    require_input(img_dir, "Steinbock image output directory")
+
+    with images_csv.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        rows = list(reader)
+        fieldnames = reader.fieldnames
+
+    if fieldnames is None:
+        raise ValueError(f"Could not read header from {images_csv}")
+
+    kept_rows = []
+    removed_rows = []
+
+    for row in rows:
+        remove_reasons = []
+        source_file = row.get("source_file", "")
+        image_name = row.get("image", "")
+        width = int(float(row.get("width_px") or 0))
+        height = int(float(row.get("height_px") or 0))
+
+        if keep_source == "mcd" and not source_file.endswith(".mcd"):
+            remove_reasons.append("source_not_mcd")
+        if min_width and width < min_width:
+            remove_reasons.append(f"width_lt_{min_width}")
+        if min_height and height < min_height:
+            remove_reasons.append(f"height_lt_{min_height}")
+
+        if remove_reasons:
+            removed_rows.append((row, remove_reasons))
+            image_path = img_dir / image_name
+            if image_path.exists():
+                image_path.unlink()
+        else:
+            kept_rows.append(row)
+
+    with images_csv.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(kept_rows)
+
+    summary_lines = [
+        "",
+        "POSTPROCESSING_FILTER",
+        f"keep_source={keep_source}",
+        f"min_width={min_width}",
+        f"min_height={min_height}",
+        f"images_kept={len(kept_rows)}",
+        f"images_removed={len(removed_rows)}",
+    ]
+    for row, reasons in removed_rows:
+        summary_lines.append(
+            f"removed={row.get('image', '')}; source={row.get('source_file', '')}; "
+            f"size={row.get('width_px', '')}x{row.get('height_px', '')}; "
+            f"reason={'+'.join(reasons)}"
+        )
+
+    with log_file.open("a", encoding="utf-8") as handle:
+        handle.write("\n".join(summary_lines) + "\n")
+
+
 def write_tiff_inventory(workflow_dir: Path, numbered_inventory: Path) -> None:
     img_dir = workflow_dir / "data" / "img"
     require_input(img_dir, "Steinbock image output directory")
@@ -140,6 +232,13 @@ def main() -> None:
     require_input(workflow_dir / "data" / "panel.csv", "Steinbock panel file")
 
     run_steinbock(workflow_dir, args.steinbock_image, args.hpf, workflow_dir / args.log_file)
+    filter_preprocessed_images(
+        workflow_dir,
+        args.keep_source,
+        args.min_width,
+        args.min_height,
+        workflow_dir / args.log_file,
+    )
     copy_images_csv(workflow_dir, args.numbered_images_copy)
     write_tiff_inventory(workflow_dir, args.numbered_inventory)
 

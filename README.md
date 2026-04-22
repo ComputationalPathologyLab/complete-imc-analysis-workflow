@@ -33,7 +33,7 @@ same structure can be adapted to an independent IMC dataset.
 The raw processing workflow notebook is:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 The clean downstream analysis notebook is:
@@ -150,7 +150,12 @@ Mesmer/DeepCell segmentation markers:
 | Marker role | Channel | Marker | `deepcell` value |
 |---|---|---|---:|
 | Nuclear marker | `Yb171` | `HistoneH3` | 1 |
+| Nuclear marker | `Ir191` | `191Ir` | 1 |
+| Nuclear marker | `Ir193` | `193Ir` | 1 |
+| Membrane marker | `Sm152` | `CD45` | 2 |
+| Membrane marker | `Er170` | `CD3` | 2 |
 | Membrane marker | `Yb173` | `CD98` | 2 |
+| Membrane marker | `Yb176` | `CD138` | 2 |
 
 ## Planned Workflow Commands
 
@@ -175,6 +180,9 @@ Purpose:
 
 - Convert raw IMC acquisitions into multi-channel TIFF images.
 - Apply hot-pixel filtering with `--hpf 50`.
+- Retain the study-style image set by keeping MCD-derived 1000 x 1000 ROIs and
+  removing small test acquisitions or duplicate TIFFs generated directly from ROI
+  text files.
 
 ### 2. Segment Cells With Mesmer
 
@@ -191,7 +199,10 @@ Expected outputs:
 Purpose:
 
 - Generate cell-object masks using Mesmer.
-- Use `HistoneH3` and `CD98` as segmentation channels.
+- Use `HistoneH3`, `191Ir`, and `193Ir` as combined nuclear segmentation
+  markers.
+- Use `CD98`, `CD3`, `CD138`, and `CD45` as combined membrane segmentation
+  markers.
 - Apply min-max normalization before segmentation.
 
 Important boundary:

@@ -80,7 +80,7 @@ scripts/01_create_panel_from_raw.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Output:
@@ -105,16 +105,21 @@ Segmentation marker assignment:
 | Marker role | Channel | Marker | `deepcell` value |
 |---|---|---|---:|
 | Nuclear marker | `Yb171` | `HistoneH3` | 1 |
+| Nuclear marker | `Ir191` | `191Ir` | 1 |
+| Nuclear marker | `Ir193` | `193Ir` | 1 |
+| Membrane marker | `Sm152` | `CD45` | 2 |
+| Membrane marker | `Er170` | `CD3` | 2 |
 | Membrane marker | `Yb173` | `CD98` | 2 |
+| Membrane marker | `Yb176` | `CD138` | 2 |
 
 Interpretation:
 
 - The panel file matches the raw data channel structure.
 - The panel file is ready for Steinbock preprocessing and Mesmer segmentation.
 
-## Next Planned Step
+## Step 4: Preprocess Raw IMC Data
 
-Step 4: Preprocess raw IMC data with Steinbock.
+Status: Complete
 
 Command:
 
@@ -122,7 +127,7 @@ Command:
 steinbock preprocess imc images --hpf 50
 ```
 
-Expected outputs:
+Output:
 
 ```text
 data/img/*.tiff
@@ -141,8 +146,25 @@ scripts/02_preprocess_imc_images.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
+
+Validation:
+
+| Check | Result |
+|---|---:|
+| Retained TIFF images | 8 |
+| Retained image size | 1000 x 1000 |
+| Retained image source | MCD-derived acquisitions |
+| Removed small IMC02 test acquisitions | 3 |
+| Removed duplicate ROI text-file images | 4 |
+
+Interpretation:
+
+- Steinbock initially extracted every acquisition present in the MCD files and
+  also generated duplicate images directly from some ROI text files.
+- The workflow now filters preprocessing outputs to the study-style image set:
+  MCD-derived 1000 x 1000 ROIs only.
 
 ## Planned Step 5: Mesmer Cell Segmentation
 
@@ -171,7 +193,7 @@ scripts/03_segment_mesmer.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Interpretation:
@@ -207,7 +229,7 @@ scripts/04_measure_intensities.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Interpretation:
@@ -242,7 +264,7 @@ scripts/05_measure_regionprops.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Interpretation:
@@ -277,7 +299,7 @@ scripts/06_measure_neighbors.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Interpretation:
@@ -319,7 +341,7 @@ scripts/07_export_data.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Interpretation:
@@ -347,7 +369,7 @@ scripts/08_validate_workflow_outputs.py
 Notebook:
 
 ```text
-notebooks/01_template_study_reproduction_workflow.ipynb
+notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
 Interpretation:

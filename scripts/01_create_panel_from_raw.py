@@ -5,26 +5,26 @@ The script scans ROI `.txt` files in a raw data directory, extracts channel and
 marker names from the first header, validates that all ROI files share the same
 channel order, and writes a dynamic Steinbock panel.
 
-Default segmentation markers follow the template study:
+Default DeepCell/Mesmer assignments for this workflow are:
 
-- nuclear marker: HistoneH3
-- membrane marker: CD98
+- nuclear markers/channels: HistoneH3, 191Ir, 193Ir
+- membrane markers: CD98, CD3, CD138, CD45
 
-These can be changed with command-line arguments when applying the workflow to a
-new IMC dataset.
+These defaults can be changed with command-line arguments when applying the
+workflow to a new IMC dataset.
 """
 
 from __future__ import annotations
 
 import argparse
 import csv
-import shutil
 import re
+import shutil
 from pathlib import Path
 
 
 METADATA_COLUMNS = {"Start_push", "End_push", "Pushes_duration", "X", "Y", "Z"}
-CHANNEL_PATTERN = re.compile(r"^(?P<marker>.+)\((?P<channel>.+?)Di\)$")
+CHANNEL_PATTERN = re.compile(r"^(?P<marker>.+)\((?P<channel>.+?)(?:Di|Ir)\)$")
 
 
 def parse_args() -> argparse.Namespace:
@@ -54,13 +54,15 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--nuclear-marker",
-        default="HistoneH3",
-        help="Marker assigned as DeepCell/Mesmer channel 1.",
+        nargs="+",
+        default=["HistoneH3", "191Ir", "193Ir"],
+        help="Marker(s) or channel label(s) assigned as DeepCell/Mesmer channel 1.",
     )
     parser.add_argument(
         "--membrane-marker",
-        default="CD98",
-        help="Marker assigned as DeepCell/Mesmer channel 2.",
+        nargs="+",
+        default=["CD98", "CD3", "CD138", "CD45"],
+        help="Marker(s) or channel label(s) assigned as DeepCell/Mesmer channel 2.",
     )
     return parser.parse_args()
 
@@ -81,8 +83,8 @@ def extract_marker_channels(header: list[str]) -> list[tuple[str, str]]:
         if match is None:
             continue
 
-        marker = match.group("marker")
-        channel = match.group("channel")
+        marker = match.group("marker").strip()
+        channel = match.group("channel").strip()
         marker_channels.append((channel, marker))
 
     if not marker_channels:
@@ -117,11 +119,15 @@ def validate_consistent_headers(roi_files: list[Path]) -> list[tuple[str, str]]:
     return reference
 
 
-def deepcell_value(marker: str, nuclear_marker: str, membrane_marker: str) -> str:
-    marker_lower = marker.casefold()
-    if marker_lower == nuclear_marker.casefold():
+def deepcell_value(
+    marker: str,
+    channel: str,
+    nuclear_markers: list[str],
+    membrane_markers: list[str],
+) -> str:
+    if marker in nuclear_markers or channel in nuclear_markers:
         return "1"
-    if marker_lower == membrane_marker.casefold():
+    if marker in membrane_markers or channel in membrane_markers:
         return "2"
     return ""
 
@@ -129,8 +135,8 @@ def deepcell_value(marker: str, nuclear_marker: str, membrane_marker: str) -> st
 def write_panel(
     marker_channels: list[tuple[str, str]],
     output: Path,
-    nuclear_marker: str,
-    membrane_marker: str,
+    nuclear_markers: list[str],
+    membrane_markers: list[str],
 ) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
 
@@ -148,7 +154,12 @@ def write_panel(
                     "name": marker,
                     "keep": "1",
                     "ilastik": str(index),
-                    "deepcell": deepcell_value(marker, nuclear_marker, membrane_marker),
+                    "deepcell": deepcell_value(
+                        marker,
+                        channel,
+                        nuclear_markers,
+                        membrane_markers,
+                    ),
                     "cellpose": "",
                 }
             )
@@ -158,7 +169,11 @@ def main() -> None:
     args = parse_args()
     raw_dir = args.raw_dir.resolve()
     output = args.output.resolve()
-    numbered_copy = None if str(args.numbered_copy).casefold() == "none" else args.numbered_copy.resolve()
+    numbered_copy = (
+        None
+        if str(args.numbered_copy).casefold() == "none"
+        else args.numbered_copy.resolve()
+    )
 
     roi_files = find_roi_text_files(raw_dir)
     marker_channels = validate_consistent_headers(roi_files)
@@ -173,8 +188,8 @@ def main() -> None:
     print(f"Steinbock panel path: {output}")
     if numbered_copy is not None:
         print(f"Numbered research copy: {numbered_copy}")
-    print(f"DeepCell channel 1 marker: {args.nuclear_marker}")
-    print(f"DeepCell channel 2 marker: {args.membrane_marker}")
+    print(f"DeepCell channel 1 markers/channels: {args.nuclear_marker}")
+    print(f"DeepCell channel 2 markers/channels: {args.membrane_marker}")
 
 
 if __name__ == "__main__":

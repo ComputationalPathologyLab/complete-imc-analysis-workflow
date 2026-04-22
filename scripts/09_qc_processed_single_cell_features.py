@@ -10,7 +10,10 @@ import os
 from collections import Counter
 from pathlib import Path
 
+Path(".matplotlib").mkdir(exist_ok=True)
+Path(".cache").mkdir(exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(Path(".matplotlib").resolve()))
+os.environ.setdefault("XDG_CACHE_HOME", str(Path(".cache").resolve()))
 
 import matplotlib
 

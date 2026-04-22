@@ -6,21 +6,14 @@ STDOUT
 
 STDERR
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-2026-04-21 13:27:27,907 INFO steinbock - intensities/TS-373_IMC01_UB_001.csv
-2026-04-21 13:27:28,402 INFO steinbock - intensities/TS-373_IMC01_UB_002.csv
-2026-04-21 13:27:28,933 INFO steinbock - intensities/TS-373_IMC02_MGUS_001.csv
-2026-04-21 13:27:29,435 INFO steinbock - intensities/TS-373_IMC02_MGUS_002.csv
-2026-04-21 13:27:29,443 INFO steinbock - intensities/TS-373_IMC02_MGUS_003.csv
-2026-04-21 13:27:29,450 INFO steinbock - intensities/TS-373_IMC02_MGUS_004.csv
-2026-04-21 13:27:29,455 INFO steinbock - intensities/TS-373_IMC02_MGUS_005.csv
-2026-04-21 13:27:29,953 INFO steinbock - intensities/TS-373_IMC05_MGUS_001.csv
-2026-04-21 13:27:30,524 INFO steinbock - intensities/TS-373_IMC05_MGUS_002.csv
-2026-04-21 13:27:31,029 INFO steinbock - intensities/TS-373_IMC05_MGUS_ROI1.csv
-2026-04-21 13:27:31,567 INFO steinbock - intensities/TS-373_IMC05_MGUS_ROI2.csv
-2026-04-21 13:27:32,157 INFO steinbock - intensities/TS-373_IMC09_B_001.csv
-2026-04-21 13:27:32,752 INFO steinbock - intensities/TS-373_IMC09_B_002.csv
-2026-04-21 13:27:33,320 INFO steinbock - intensities/TS-373_IMC09_B_ROI1.csv
-2026-04-21 13:27:33,905 INFO steinbock - intensities/TS-373_IMC09_B_ROI2.csv
+2026-04-22 16:04:30,276 INFO steinbock - intensities/TS-373_IMC01_UB_001.csv
+2026-04-22 16:04:30,804 INFO steinbock - intensities/TS-373_IMC01_UB_002.csv
+2026-04-22 16:04:31,419 INFO steinbock - intensities/TS-373_IMC02_MGUS_001.csv
+2026-04-22 16:04:31,955 INFO steinbock - intensities/TS-373_IMC02_MGUS_002.csv
+2026-04-22 16:04:32,579 INFO steinbock - intensities/TS-373_IMC05_MGUS_001.csv
+2026-04-22 16:04:33,207 INFO steinbock - intensities/TS-373_IMC05_MGUS_002.csv
+2026-04-22 16:04:33,873 INFO steinbock - intensities/TS-373_IMC09_B_001.csv
+2026-04-22 16:04:34,589 INFO steinbock - intensities/TS-373_IMC09_B_002.csv
 
 
 RETURN_CODE

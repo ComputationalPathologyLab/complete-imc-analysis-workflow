@@ -1,0 +1,9 @@
+index,file_name,relative_path,size_bytes
+1,TS-373_IMC01_UB_001.csv,data/intensities/TS-373_IMC01_UB_001.csv,4418049
+2,TS-373_IMC01_UB_002.csv,data/intensities/TS-373_IMC01_UB_002.csv,3460579
+3,TS-373_IMC02_MGUS_001.csv,data/intensities/TS-373_IMC02_MGUS_001.csv,5002907
+4,TS-373_IMC02_MGUS_002.csv,data/intensities/TS-373_IMC02_MGUS_002.csv,3773432
+5,TS-373_IMC05_MGUS_001.csv,data/intensities/TS-373_IMC05_MGUS_001.csv,3649429
+6,TS-373_IMC05_MGUS_002.csv,data/intensities/TS-373_IMC05_MGUS_002.csv,5495575
+7,TS-373_IMC09_B_001.csv,data/intensities/TS-373_IMC09_B_001.csv,6750308
+8,TS-373_IMC09_B_002.csv,data/intensities/TS-373_IMC09_B_002.csv,7470958

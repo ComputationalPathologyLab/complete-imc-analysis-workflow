@@ -11,6 +11,9 @@ same overall structure as the Steinbock hands-on session:
 5. Measure single-cell intensities and morphology.
 6. Construct spatial neighbor graphs.
 7. Export analysis-ready tables and objects.
+8. Process exported single-cell features according to the template paper.
+9. Perform technical QC of processed single-cell features.
+10. Assign transparent first-pass rule-based phenotypes.
 
 The immediate goal is to reproduce the study methodology on a representative
 subset of the template data. After successful reproduction on this subset, the
@@ -36,10 +39,22 @@ The raw processing workflow notebook is:
 notebooks/01_Complete IMC Data Analysis Workflow.ipynb
 ```
 
-The clean downstream analysis notebook is:
+The single-cell feature processing notebook is:
 
 ```text
-notebooks/02_clean_downstream_analysis.ipynb
+notebooks/02_single_cell_feature_processing.ipynb
+```
+
+The processed single-cell QC notebook is:
+
+```text
+notebooks/03_processed_single_cell_qc.ipynb
+```
+
+The rule-based phenotyping notebook is:
+
+```text
+notebooks/04_rule_based_phenotyping.ipynb
 ```
 
 Each step contains:
@@ -74,16 +89,19 @@ Examples:
 | AnnData result | `results/09_cells.h5ad` |
 | GraphML result folder | `results/10_graphml/` |
 | CSV summary | `results/10_graphml_inventory.csv` |
-| CSV validation | `results/11_workflow_output_validation.csv` |
-<!-- | CSV QC summary | `results/12_cell_qc_summary.csv` |
+| CSV result | `results/11_processed_single_cell_features.csv` |
+| CSV summary | `results/11_processed_single_cell_features_summary.csv` |
+| CSV QC summary | `results/12_processed_single_cell_qc_summary.csv` |
+| CSV QC summary | `results/12_processed_marker_qc_summary.csv` |
 | CSV phenotyping result | `results/13_cells_with_phenotypes.csv` |
-| CSV composition summary | `results/14_phenotype_composition_by_category.csv` |
-| CSV spatial summary | `results/15_phenotype_spatial_interactions.csv` |
-| CSV spatial summary | `results/16_phenotype_spatial_enrichment.csv` |
-| Figure | `figures/01_cell_counts_by_category.png` |
-| Figure | `figures/02_phenotype_composition_by_category.png` |
-| Figure | `figures/03_spatial_enrichment_heatmap.png` |
-| Log | `logs/01_preprocessing.log` | -->
+| CSV composition summary | `results/14_phenotype_composition_by_image.csv` |
+| CSV composition summary | `results/15_phenotype_composition_by_category.csv` |
+| CSV threshold summary | `results/16_rule_based_phenotyping_thresholds.csv` |
+| Figure | `figures/01_cells_per_image.png` |
+| Figure | `figures/02_area_distribution_after_filtering.png` |
+| Figure | `figures/03_marker_summary_after_transformation.png` |
+| Figure | `figures/04_phenotype_counts_by_image.png` |
+| Figure | `figures/05_phenotype_composition_by_category.png` |
 
 Steinbock requires specific working names such as `data/panel.csv`,
 `data/images.csv`, `data/img/`, `data/masks/`, and `data/cells.csv`. These names
@@ -157,10 +175,11 @@ Mesmer/DeepCell segmentation markers:
 | Membrane marker | `Yb173` | `CD98` | 2 |
 | Membrane marker | `Yb176` | `CD138` | 2 |
 
-## Planned Workflow Commands
+## Workflow Steps
 
 The workflow follows the Steinbock command sequence used in the hands-on
-session.
+session, then adds documented post-export single-cell processing, QC, and
+first-pass phenotyping steps.
 
 ### 1. Preprocess Raw IMC Data
 
@@ -316,6 +335,107 @@ Purpose:
 
 - Convert neighbor edge lists into attributed spatial graphs.
 
+### 9. Process Single-Cell Features
+
+```bash
+python3 scripts/08_process_single_cell_features.py
+```
+
+Expected outputs:
+
+- `results/11_processed_single_cell_features.csv`
+- `results/11_processed_single_cell_features_summary.csv`
+
+Purpose:
+
+- Start from the exported single-cell table `data/cells.csv`.
+- Filter out objects with `area < 4` pixels.
+- Censor each marker column to its own 99th percentile.
+- Apply arcsinh transformation to marker columns with cofactor 1.
+- Save a processed table for downstream analysis while preserving the raw
+  exported table.
+
+Template-paper alignment:
+
+- This step implements the paper description that single-cell features were
+  filtered by area, censored at the 99th percentile, and arcsinh-transformed
+  with cofactor 1.
+- Marker columns are identified from `data/panel.csv` so metadata, coordinates,
+  area, and object identifiers are not transformed.
+
+Notebook:
+
+```text
+notebooks/02_single_cell_feature_processing.ipynb
+```
+
+### 10. QC Processed Single-Cell Features
+
+```bash
+python3 scripts/09_qc_processed_single_cell_features.py
+```
+
+Expected outputs:
+
+- `results/12_processed_single_cell_qc_summary.csv`
+- `results/12_processed_marker_qc_summary.csv`
+- `figures/01_cells_per_image.png`
+- `figures/02_area_distribution_after_filtering.png`
+- `figures/03_marker_summary_after_transformation.png`
+
+Purpose:
+
+- Confirm that the processed table has the expected structure.
+- Summarize total cell counts and cells per image.
+- Verify that the minimum retained area is consistent with the area filter.
+- Check marker value ranges after censoring and arcsinh transformation.
+- Generate simple technical QC figures before phenotyping.
+
+Notebook:
+
+```text
+notebooks/03_processed_single_cell_qc.ipynb
+```
+
+### 11. Rule-Based Cell Phenotyping
+
+```bash
+python3 scripts/10_rule_based_phenotyping.py
+```
+
+Expected outputs:
+
+- `results/13_cells_with_phenotypes.csv`
+- `results/14_phenotype_composition_by_image.csv`
+- `results/15_phenotype_composition_by_category.csv`
+- `results/16_rule_based_phenotyping_thresholds.csv`
+- `figures/04_phenotype_counts_by_image.png`
+- `figures/05_phenotype_composition_by_category.png`
+
+Purpose:
+
+- Assign transparent first-pass phenotype labels from processed marker values.
+- Calculate marker positivity thresholds from the data using the selected
+  percentile threshold.
+- Apply a documented rule hierarchy for plasma-cell-like, T-cell-like,
+  myeloid-like, stromal-like, bone-associated-like, adipocyte-like, and unknown
+  labels.
+- Summarize phenotype composition by ROI image and category.
+
+Important boundary:
+
+- This step is a simplified, rule-based approximation.
+- It does not reproduce the template paper's full manual annotation,
+  XGBoost-classification, and FlowSOM-review workflow.
+- Phenotype labels use the suffix `_like` to indicate approximate marker-pattern
+  labels rather than definitive expert-reviewed identities.
+
+Notebook:
+
+```text
+notebooks/04_rule_based_phenotyping.ipynb
+```
+
 ## Current Status
 
 | Step | Status |
@@ -323,11 +443,39 @@ Purpose:
 | Clean workspace created | Complete |
 | Raw representative data copied into `data/raw/` | Complete |
 | `data/panel.csv` generated and validated | Complete |
-| Steinbock preprocessing | Ready for notebook execution |
-| Mesmer segmentation | Ready for notebook execution after preprocessing |
-| Intensity measurement | Ready for notebook execution after segmentation |
-| Region property measurement | Ready for notebook execution after segmentation |
-| Neighbor graph construction | Ready for notebook execution after segmentation |
-| Data export | Ready for notebook execution after measurements |
-| Workflow output validation | Ready for notebook execution after export |
-| Clean downstream analysis | Ready in Notebook 2 |
+| Steinbock preprocessing | Complete |
+| Mesmer segmentation | Complete |
+| Intensity measurement | Complete |
+| Region property measurement | Complete |
+| Neighbor graph construction | Complete |
+| Data export | Complete |
+| Single-cell feature processing | Complete |
+| Processed single-cell QC | Complete |
+| Rule-based phenotyping | Complete |
+
+## Current Output Summary
+
+| Output | Status |
+|---|---|
+| `results/08_cells.csv` | Complete |
+| `results/09_cells.h5ad` | Complete |
+| `results/10_graphml/` | Complete |
+| `results/11_processed_single_cell_features.csv` | Complete |
+| `results/12_processed_single_cell_qc_summary.csv` | Complete |
+| `results/12_processed_marker_qc_summary.csv` | Complete |
+| `results/13_cells_with_phenotypes.csv` | Complete |
+| `results/14_phenotype_composition_by_image.csv` | Complete |
+| `results/15_phenotype_composition_by_category.csv` | Complete |
+| `results/16_rule_based_phenotyping_thresholds.csv` | Complete |
+
+## Interpretation Boundaries
+
+- The raw-to-image, segmentation, measurement, neighbor, and export stages follow
+  the Steinbock-style workflow used by the template paper.
+- The feature-processing step implements the template-paper description for
+  area filtering, 99th percentile censoring, and arcsinh transformation.
+- The rule-based phenotyping step is intentionally transparent and educational.
+  It should not be described as exact reproduction of the paper's final cell
+  annotation workflow.
+- Composition tables and figures are exploratory summaries until phenotype rules
+  are validated against expert annotation or reference labels.

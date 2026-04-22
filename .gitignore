@@ -7,3 +7,6 @@ results/13_cells_with_phenotypes.csv
 results/08_cells.csv
 results/08_cells.csv
 results/13_cells_with_phenotypes.csv
+scripts/__pycache__/
+results/08_cells.csv
+results/13_cells_with_phenotypes.csv

@@ -9,14 +9,14 @@ STDOUT
 
 STDERR
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-2026-04-22 15:56:09,227 INFO steinbock - masks/TS-373_IMC01_UB_001.tiff
-2026-04-22 15:56:34,070 INFO steinbock - masks/TS-373_IMC01_UB_002.tiff
-2026-04-22 15:57:01,018 INFO steinbock - masks/TS-373_IMC02_MGUS_001.tiff
-2026-04-22 15:57:27,243 INFO steinbock - masks/TS-373_IMC02_MGUS_002.tiff
-2026-04-22 15:57:53,953 INFO steinbock - masks/TS-373_IMC05_MGUS_001.tiff
-2026-04-22 15:58:22,731 INFO steinbock - masks/TS-373_IMC05_MGUS_002.tiff
-2026-04-22 15:58:52,176 INFO steinbock - masks/TS-373_IMC09_B_001.tiff
-2026-04-22 15:59:23,734 INFO steinbock - masks/TS-373_IMC09_B_002.tiff
+2026-04-23 10:38:54,871 INFO steinbock - masks/TS-373_IMC01_UB_001.tiff
+2026-04-23 10:39:21,205 INFO steinbock - masks/TS-373_IMC01_UB_002.tiff
+2026-04-23 10:39:51,446 INFO steinbock - masks/TS-373_IMC02_MGUS_001.tiff
+2026-04-23 10:40:17,891 INFO steinbock - masks/TS-373_IMC02_MGUS_002.tiff
+2026-04-23 10:40:45,361 INFO steinbock - masks/TS-373_IMC05_MGUS_001.tiff
+2026-04-23 10:41:14,694 INFO steinbock - masks/TS-373_IMC05_MGUS_002.tiff
+2026-04-23 10:41:45,278 INFO steinbock - masks/TS-373_IMC09_B_001.tiff
+2026-04-23 10:42:18,800 INFO steinbock - masks/TS-373_IMC09_B_002.tiff
 
 
 RETURN_CODE

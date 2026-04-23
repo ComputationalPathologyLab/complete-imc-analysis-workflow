@@ -6,22 +6,22 @@ STDOUT
 
 STDERR
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-2026-04-22 15:48:22,797 INFO steinbock - img/TS-373_IMC09_B_001.tiff
-2026-04-22 15:48:23,497 INFO steinbock - img/TS-373_IMC09_B_002.tiff
-2026-04-22 15:48:24,209 INFO steinbock - img/TS-373_IMC05_MGUS_001.tiff
-2026-04-22 15:48:24,885 INFO steinbock - img/TS-373_IMC05_MGUS_002.tiff
-2026-04-22 15:48:25,599 INFO steinbock - img/TS-373_IMC02_MGUS_001.tiff
-2026-04-22 15:48:26,333 INFO steinbock - img/TS-373_IMC02_MGUS_002.tiff
-2026-04-22 15:48:26,337 INFO steinbock - img/TS-373_IMC02_MGUS_003.tiff
-2026-04-22 15:48:26,340 INFO steinbock - img/TS-373_IMC02_MGUS_004.tiff
-2026-04-22 15:48:26,343 INFO steinbock - img/TS-373_IMC02_MGUS_005.tiff
-2026-04-22 15:48:27,059 INFO steinbock - img/TS-373_IMC01_UB_001.tiff
-2026-04-22 15:48:27,785 INFO steinbock - img/TS-373_IMC01_UB_002.tiff
-2026-04-22 15:48:31,093 INFO steinbock - img/TS-373_IMC05_MGUS_ROI1.tiff
-2026-04-22 15:48:34,487 INFO steinbock - img/TS-373_IMC05_MGUS_ROI2.tiff
-2026-04-22 15:48:37,843 INFO steinbock - img/TS-373_IMC09_B_ROI1.tiff
-2026-04-22 15:48:41,157 INFO steinbock - img/TS-373_IMC09_B_ROI2.tiff
-2026-04-22 15:48:41,168 INFO steinbock - images.csv
+2026-04-23 10:36:34,514 INFO steinbock - img/TS-373_IMC09_B_001.tiff
+2026-04-23 10:36:35,215 INFO steinbock - img/TS-373_IMC09_B_002.tiff
+2026-04-23 10:36:35,903 INFO steinbock - img/TS-373_IMC05_MGUS_001.tiff
+2026-04-23 10:36:36,607 INFO steinbock - img/TS-373_IMC05_MGUS_002.tiff
+2026-04-23 10:36:37,346 INFO steinbock - img/TS-373_IMC02_MGUS_001.tiff
+2026-04-23 10:36:38,158 INFO steinbock - img/TS-373_IMC02_MGUS_002.tiff
+2026-04-23 10:36:38,163 INFO steinbock - img/TS-373_IMC02_MGUS_003.tiff
+2026-04-23 10:36:38,166 INFO steinbock - img/TS-373_IMC02_MGUS_004.tiff
+2026-04-23 10:36:38,168 INFO steinbock - img/TS-373_IMC02_MGUS_005.tiff
+2026-04-23 10:36:39,000 INFO steinbock - img/TS-373_IMC01_UB_001.tiff
+2026-04-23 10:36:39,769 INFO steinbock - img/TS-373_IMC01_UB_002.tiff
+2026-04-23 10:36:43,257 INFO steinbock - img/TS-373_IMC05_MGUS_ROI1.tiff
+2026-04-23 10:36:46,473 INFO steinbock - img/TS-373_IMC05_MGUS_ROI2.tiff
+2026-04-23 10:36:49,700 INFO steinbock - img/TS-373_IMC09_B_ROI1.tiff
+2026-04-23 10:36:53,185 INFO steinbock - img/TS-373_IMC09_B_ROI2.tiff
+2026-04-23 10:36:53,197 INFO steinbock - images.csv
 
 
 RETURN_CODE

@@ -94,6 +94,7 @@ results/25_final_interpretation_summary.md
 | `notebooks/06_spatial_phenotype_enrichment.ipynb` | Observed-versus-expected spatial enrichment analysis |
 | `notebooks/07_plasma_cell_spatial_niche_summary.ipynb` | Plasma-cell-like focused spatial niche summary |
 | `notebooks/08_final_analysis_report.ipynb` | Data-driven final interpretation report generation |
+| `notebooks/napari.ipynb` | Interactive Napari review of IMC images and Mesmer masks |
 
 Each notebook contains professional Markdown documentation before executable
 code cells. The notebooks are intended to serve as the readable workflow record;
@@ -509,6 +510,31 @@ Purpose:
   single-cell exports.
 - Provide a dry-run mode that prints the commands without executing them.
 
+### 14. Interactive Napari Visualization
+
+Notebook:
+
+```text
+notebooks/napari.ipynb
+```
+
+Inputs:
+
+```text
+data/panel.csv
+data/img/*.tiff
+data/masks/*.tiff
+```
+
+Purpose:
+
+- Open project ROI images and matching segmentation masks in Napari.
+- Use marker names from the panel as image-layer names.
+- Provide default marker groups for nuclear, membrane, plasma-cell-associated,
+  and immune-lineage review.
+- Support manual inspection of marker signal quality and mask alignment.
+- Optionally export Napari screenshots to `figures/napari_screenshots/`.
+
 ## Numbered Results
 
 | Output | Description |
@@ -587,6 +613,46 @@ Purpose:
 | Rule-based phenotype classes assigned | 14 |
 | Unique undirected spatial edges analyzed | 127,090 |
 | Final interpretation report | `results/25_final_interpretation_summary.md` |
+
+## Analysis Endpoint
+
+The current workflow reaches the end of the planned first-pass reproducible
+analysis. It starts from representative raw IMC input files and finishes with a
+data-driven final interpretation report.
+
+The current endpoint is:
+
+```text
+results/25_final_interpretation_summary.md
+```
+
+At this endpoint, the workflow has generated:
+
+- cleaned IMC image inventories
+- Mesmer segmentation masks
+- per-cell intensity and morphology measurements
+- spatial neighbor graphs
+- processed single-cell marker features
+- processed feature QC summaries
+- rule-based approximate phenotype labels
+- phenotype composition summaries
+- spatial phenotype interaction summaries
+- abundance-normalized spatial enrichment tables
+- plasma-cell-like niche summaries
+- a final exploratory interpretation report
+
+This is the end of the current analysis version, but it is not the end of all
+possible biological analysis. The current endpoint is suitable for a documented
+technical reproduction and exploratory interpretation. Additional work is needed
+before strong biological claims can be made.
+
+Recommended extensions beyond this endpoint include:
+
+- reference-guided or expert-reviewed phenotype validation
+- permutation-based spatial enrichment testing
+- bone-mask integration and distance-to-bone analysis
+- comparison against original processed reference annotations when available
+- expansion from the representative subset to the full dataset
 
 ## Interpretation Boundaries
 

@@ -35,6 +35,10 @@ raw MCD / ROI text files
 -> single-cell feature processing
 -> processed feature QC
 -> rule-based first-pass phenotyping
+-> spatial phenotype interactions
+-> abundance-normalized spatial enrichment
+-> plasma-cell-like niche summary
+-> final interpretation report
 ```
 
 ## Reproduction Principles
@@ -48,6 +52,36 @@ raw MCD / ROI text files
 - Research outputs are numbered chronologically in `results/` and `figures/`.
 - Interpretation boundaries are documented next to the relevant workflow step.
 
+## Reuse on New Data
+
+To apply the same workflow to another compatible IMC dataset, place the raw
+`.mcd` files and ROI `.txt` files in `data/raw/`, then run the complete workflow
+runner from the project directory:
+
+```bash
+python3 scripts/15_run_complete_workflow.py
+```
+
+For a non-executing command preview:
+
+```bash
+python3 scripts/15_run_complete_workflow.py --dry-run
+```
+
+For downstream regeneration after `data/cells.csv` and neighbor tables already
+exist:
+
+```bash
+python3 scripts/15_run_complete_workflow.py --start-at 08
+```
+
+The runner executes the numbered scripts in order and regenerates the final
+Markdown interpretation report at:
+
+```text
+results/25_final_interpretation_summary.md
+```
+
 ## Notebooks
 
 | Notebook | Role |
@@ -56,6 +90,10 @@ raw MCD / ROI text files
 | `notebooks/02_single_cell_feature_processing.ipynb` | Area filtering, 99th percentile censoring, and arcsinh transformation |
 | `notebooks/03_processed_single_cell_qc.ipynb` | Technical QC of processed single-cell features |
 | `notebooks/04_rule_based_phenotyping.ipynb` | Transparent first-pass rule-based phenotype assignment |
+| `notebooks/05_spatial_phenotype_interactions.ipynb` | Raw phenotype-neighbor interaction summaries |
+| `notebooks/06_spatial_phenotype_enrichment.ipynb` | Observed-versus-expected spatial enrichment analysis |
+| `notebooks/07_plasma_cell_spatial_niche_summary.ipynb` | Plasma-cell-like focused spatial niche summary |
+| `notebooks/08_final_analysis_report.ipynb` | Data-driven final interpretation report generation |
 
 Each notebook contains professional Markdown documentation before executable
 code cells. The notebooks are intended to serve as the readable workflow record;
@@ -355,6 +393,122 @@ template paper's full expert annotation, optimized XGBoost classification, and
 FlowSOM review workflow. Labels use the suffix `_like` to indicate approximate
 marker-pattern assignments.
 
+### 9. Spatial Phenotype Interactions
+
+Script:
+
+```text
+scripts/11_spatial_phenotype_interactions.py
+```
+
+Outputs:
+
+```text
+results/17_spatial_phenotype_interactions_by_image.csv
+results/18_spatial_phenotype_interactions_by_category.csv
+results/19_spatial_phenotype_interaction_summary.csv
+figures/06_spatial_phenotype_interaction_heatmap.png
+```
+
+Purpose:
+
+- Join rule-based phenotype labels to cell-neighbor edge lists.
+- Collapse reciprocal directed neighbor edges into unique undirected edges.
+- Summarize which approximate phenotypes occur next to each other by ROI image
+  and category.
+- Provide the raw spatial interaction layer used by enrichment analysis.
+
+### 10. Spatial Phenotype Enrichment
+
+Script:
+
+```text
+scripts/12_spatial_phenotype_enrichment.py
+```
+
+Outputs:
+
+```text
+results/20_spatial_phenotype_enrichment_by_image.csv
+results/21_spatial_phenotype_enrichment_by_category.csv
+figures/07_spatial_phenotype_enrichment_heatmap.png
+```
+
+Purpose:
+
+- Compare observed phenotype-neighbor fractions with abundance-based expected
+  fractions.
+- Calculate observed-to-expected ratios and log2 enrichment values.
+- Identify spatial phenotype pairs that occur more or less often than expected
+  from phenotype abundance.
+
+Boundary:
+
+This enrichment is an abundance-normalized exploratory statistic. It is not a
+permutation-based spatial null model.
+
+### 11. Plasma-Cell-Like Niche Summary
+
+Script:
+
+```text
+scripts/13_plasma_cell_niche_analysis.py
+```
+
+Outputs:
+
+```text
+results/22_plasma_cell_niche_by_image.csv
+results/23_plasma_cell_niche_by_category.csv
+results/24_plasma_cell_niche_summary.csv
+figures/08_plasma_cell_neighbor_enrichment.png
+```
+
+Purpose:
+
+- Extract spatial enrichment rows involving `Plasma_cell_like` cells.
+- Summarize enriched and depleted plasma-cell-like neighbor phenotypes.
+- Apply a minimum-edge threshold for top-neighbor interpretation so rare
+  one-off edges do not dominate the summary.
+
+### 12. Final Interpretation Report
+
+Script:
+
+```text
+scripts/14_generate_final_interpretation_report.py
+```
+
+Output:
+
+```text
+results/25_final_interpretation_summary.md
+```
+
+Purpose:
+
+- Combine processed feature summaries, QC outputs, phenotype composition,
+  spatial enrichment, and plasma-cell-like niche summaries.
+- Generate a reusable Markdown report that updates when the pipeline is rerun on
+  another compatible IMC dataset.
+- Keep the final conclusion cautious by documenting annotation and statistical
+  limitations.
+
+### 13. Complete Workflow Runner
+
+Script:
+
+```text
+scripts/15_run_complete_workflow.py
+```
+
+Purpose:
+
+- Execute the numbered workflow scripts in order.
+- Support complete reruns from raw data or downstream-only reruns from processed
+  single-cell exports.
+- Provide a dry-run mode that prints the commands without executing them.
+
 ## Numbered Results
 
 | Output | Description |
@@ -377,6 +531,15 @@ marker-pattern assignments.
 | `results/14_phenotype_composition_by_image.csv` | Phenotype composition by ROI image |
 | `results/15_phenotype_composition_by_category.csv` | Phenotype composition by category |
 | `results/16_rule_based_phenotyping_thresholds.csv` | Marker positivity thresholds |
+| `results/17_spatial_phenotype_interactions_by_image.csv` | Phenotype-neighbor interactions by ROI image |
+| `results/18_spatial_phenotype_interactions_by_category.csv` | Phenotype-neighbor interactions by category |
+| `results/19_spatial_phenotype_interaction_summary.csv` | Spatial interaction processing summary |
+| `results/20_spatial_phenotype_enrichment_by_image.csv` | Observed-versus-expected enrichment by ROI image |
+| `results/21_spatial_phenotype_enrichment_by_category.csv` | Observed-versus-expected enrichment by category |
+| `results/22_plasma_cell_niche_by_image.csv` | Plasma-cell-like niche enrichment by ROI image |
+| `results/23_plasma_cell_niche_by_category.csv` | Plasma-cell-like niche enrichment by category |
+| `results/24_plasma_cell_niche_summary.csv` | Plasma-cell-like niche interpretation summary |
+| `results/25_final_interpretation_summary.md` | Final data-driven interpretation report |
 
 ## Figures
 
@@ -387,6 +550,9 @@ marker-pattern assignments.
 | `figures/03_marker_summary_after_transformation.png` | Marker medians and high-end transformed values |
 | `figures/04_phenotype_counts_by_image.png` | Rule-based phenotype counts by image |
 | `figures/05_phenotype_composition_by_category.png` | Rule-based phenotype fractions by category |
+| `figures/06_spatial_phenotype_interaction_heatmap.png` | Spatial phenotype interaction heatmap |
+| `figures/07_spatial_phenotype_enrichment_heatmap.png` | Spatial phenotype enrichment heatmap |
+| `figures/08_plasma_cell_neighbor_enrichment.png` | Plasma-cell-like neighbor enrichment heatmap |
 
 ## Current Status
 
@@ -404,6 +570,10 @@ marker-pattern assignments.
 | Single-cell feature processing | Complete |
 | Processed feature QC | Complete |
 | Rule-based phenotyping | Complete |
+| Spatial phenotype interaction analysis | Complete |
+| Spatial phenotype enrichment analysis | Complete |
+| Plasma-cell-like niche summary | Complete |
+| Final interpretation report | Complete |
 
 ## Current Summary
 
@@ -415,6 +585,8 @@ marker-pattern assignments.
 | Cells removed with `area < 4` | 28 |
 | Marker columns processed | 42 |
 | Rule-based phenotype classes assigned | 14 |
+| Unique undirected spatial edges analyzed | 127,090 |
+| Final interpretation report | `results/25_final_interpretation_summary.md` |
 
 ## Interpretation Boundaries
 
@@ -429,10 +601,15 @@ marker-pattern assignments.
   template paper's final cell annotations.
 - Composition tables and phenotype figures are exploratory until validated
   against expert annotation, reference labels, or a supervised annotation model.
+- Spatial enrichment is abundance-normalized but not yet permutation-tested.
+- The final report is data-driven and reusable, but the biological strength of
+  its conclusions depends on phenotype validation and appropriate statistical
+  testing for the target dataset.
 
 ## Suggested Next Step
 
-The next logical analysis stage is spatial phenotype analysis using the existing
-neighbor tables and the rule-based phenotype labels. A suitable next notebook can
-summarize which approximate phenotypes neighbor each other within each ROI and
-category.
+The current workflow now reaches an exploratory final interpretation report. The
+next methodological improvement should be either reference-guided phenotype
+validation or permutation-based spatial enrichment testing. Bone-mask and
+distance-to-bone analysis can be added when reproducible bone annotations are
+available for the target dataset.

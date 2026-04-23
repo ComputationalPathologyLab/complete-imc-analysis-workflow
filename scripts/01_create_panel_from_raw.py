@@ -32,6 +32,12 @@ def parse_args() -> argparse.Namespace:
         description="Create data/panel.csv from raw IMC ROI text-file headers."
     )
     parser.add_argument(
+        "--workflow-dir",
+        type=Path,
+        default=Path.cwd(),
+        help="Workflow directory containing data/, results/, scripts/, and notebooks/.",
+    )
+    parser.add_argument(
         "--raw-dir",
         type=Path,
         default=Path("data/raw"),
@@ -65,6 +71,10 @@ def parse_args() -> argparse.Namespace:
         help="Marker(s) or channel label(s) assigned as DeepCell/Mesmer channel 2.",
     )
     return parser.parse_args()
+
+
+def workflow_path(workflow_dir: Path, path: Path) -> Path:
+    return path if path.is_absolute() else workflow_dir / path
 
 
 def read_header(path: Path) -> list[str]:
@@ -167,12 +177,13 @@ def write_panel(
 
 def main() -> None:
     args = parse_args()
-    raw_dir = args.raw_dir.resolve()
-    output = args.output.resolve()
+    workflow_dir = args.workflow_dir.resolve()
+    raw_dir = workflow_path(workflow_dir, args.raw_dir).resolve()
+    output = workflow_path(workflow_dir, args.output).resolve()
     numbered_copy = (
         None
         if str(args.numbered_copy).casefold() == "none"
-        else args.numbered_copy.resolve()
+        else workflow_path(workflow_dir, args.numbered_copy).resolve()
     )
 
     roi_files = find_roi_text_files(raw_dir)

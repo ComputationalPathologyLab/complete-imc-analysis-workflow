@@ -6,7 +6,7 @@ STDOUT
 
 STDERR
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-2026-04-22 16:27:28,868 INFO steinbock - cells.csv
+2026-04-23 11:41:12,920 INFO steinbock - cells.csv
 
 
 RETURN_CODE
@@ -23,8 +23,8 @@ STDOUT
 
 STDERR
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-2026-04-22 16:27:30,795 WARNING steinbock - The anndata package currently does not support on-disk; all files will be loaded into memory
-2026-04-22 16:27:33,917 INFO steinbock - cells.h5ad
+2026-04-23 11:41:15,141 WARNING steinbock - The anndata package currently does not support on-disk; all files will be loaded into memory
+2026-04-23 11:41:18,466 INFO steinbock - cells.h5ad
 
 
 RETURN_CODE
@@ -41,14 +41,14 @@ STDOUT
 
 STDERR
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-2026-04-22 16:27:37,378 INFO steinbock - graphs/TS-373_IMC01_UB_001.graphml
-2026-04-22 16:27:38,534 INFO steinbock - graphs/TS-373_IMC01_UB_002.graphml
-2026-04-22 16:27:40,268 INFO steinbock - graphs/TS-373_IMC02_MGUS_001.graphml
-2026-04-22 16:27:41,594 INFO steinbock - graphs/TS-373_IMC02_MGUS_002.graphml
-2026-04-22 16:27:42,868 INFO steinbock - graphs/TS-373_IMC05_MGUS_001.graphml
-2026-04-22 16:27:44,765 INFO steinbock - graphs/TS-373_IMC05_MGUS_002.graphml
-2026-04-22 16:27:47,156 INFO steinbock - graphs/TS-373_IMC09_B_001.graphml
-2026-04-22 16:27:49,821 INFO steinbock - graphs/TS-373_IMC09_B_002.graphml
+2026-04-23 11:41:22,060 INFO steinbock - graphs/TS-373_IMC01_UB_001.graphml
+2026-04-23 11:41:23,241 INFO steinbock - graphs/TS-373_IMC01_UB_002.graphml
+2026-04-23 11:41:25,035 INFO steinbock - graphs/TS-373_IMC02_MGUS_001.graphml
+2026-04-23 11:41:26,392 INFO steinbock - graphs/TS-373_IMC02_MGUS_002.graphml
+2026-04-23 11:41:27,702 INFO steinbock - graphs/TS-373_IMC05_MGUS_001.graphml
+2026-04-23 11:41:29,742 INFO steinbock - graphs/TS-373_IMC05_MGUS_002.graphml
+2026-04-23 11:41:32,289 INFO steinbock - graphs/TS-373_IMC09_B_001.graphml
+2026-04-23 11:41:35,394 INFO steinbock - graphs/TS-373_IMC09_B_002.graphml
 
 
 RETURN_CODE
